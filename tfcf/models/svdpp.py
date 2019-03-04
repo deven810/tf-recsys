@@ -61,15 +61,15 @@ def _get_implicit_feedback(x, num_users, num_items, dual):
         N = [[] for u in range(num_users)]
         for u, i, in zip(x[:, 0], x[:, 1]):
             # print(u)
-            N[int(u.item())-1].append(i)
+            N[int(u.item())-1].append(int(i.item()))
 
         return _convert_to_sparse_format(N)
     else:
         N = [[] for u in range(num_users)]
         H = [[] for u in range(num_items)]
         for u, i, in zip(x[:, 0], x[:, 1]):
-            N[int(u.item())].append(int(i.item()))
-            H[int(i.item())].append(int(u.item()))
+            N[int(u.item())-1].append(int(i.item()))
+            H[int(i.item())-1].append(int(u.item()))
 
         return _convert_to_sparse_format(N), _convert_to_sparse_format(H)
 
